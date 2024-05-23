@@ -30,8 +30,8 @@ class StateResource extends Resource
                 Section::make()
                     ->schema([
                         Select::make('country_id')
-                            ->relationship(name: 'country', titleAttribute: 'name')
-                            ->searchable(),
+                            ->relationship(name: 'country', titleAttribute: 'name'),
+                        // ->searchable(),
                         TextInput::make('name'),
                     ])
             ]);

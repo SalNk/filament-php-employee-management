@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\State;
+use App\Models\Country;
 use App\Models\Employee;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -18,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\EmployeeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
+use App\Models\City;
 
 class EmployeeResource extends Resource
 {
@@ -36,11 +39,32 @@ class EmployeeResource extends Resource
                 DatePicker::make('birth_day'),
                 DatePicker::make('date_hired'),
                 Select::make('country_id')
-                    ->relationship(name: 'country', titleAttribute: 'name'),
-                Select::make('city_id')
-                    ->relationship(name: 'city', titleAttribute: 'name'),
+                    ->label('Country')
+                    ->options(Country::all()->pluck('name', 'id')->toArray())
+                    ->reactive()
+                    ->afterStateUpdated(fn(callable $set) => $set('state_id', null)),
                 Select::make('state_id')
-                    ->relationship(name: 'state', titleAttribute: 'name'),
+                    ->label('State')
+                    ->options(function (callable $get) {
+                        $country = Country::find($get('country_id'));
+                        if (!$country) {
+                            return State::all()->pluck('name', 'id');
+                        }
+                        return $country->states->pluck('name', 'id');
+                    })
+                    ->reactive()
+                    ->afterStateUpdated(fn(callable $set) => $set('city_id', null)),
+                Select::make('city_id')
+                    ->label('City')
+                    ->options(function (callable $get) {
+                        $state = State::find($get('state_id'));
+                        if (!$state) {
+                            return City::all()->pluck('name', 'id');
+                        }
+                        return $state->cities->pluck('name', 'id');
+                    })
+                    ->reactive()
+                    ->afterStateUpdated(fn(callable $set) => $set('city_id', null)),
                 Select::make('department_id')
                     ->relationship(name: 'department', titleAttribute: 'name')
             ]);
@@ -57,9 +81,9 @@ class EmployeeResource extends Resource
                 TextColumn::make('date_hired')->sortable()->searchable(),
                 TextColumn::make('created_at')->dateTime(),
                 // TextColumn::make('address')->sortable()->searchable(),
+                TextColumn::make('country.name')->sortable()->searchable(),
                 // TextColumn::make('zip_code')->sortable()->searchable(),
                 // TextColumn::make('birth_day')->sortable()->searchable(),
-                // TextColumn::make('country.name')->sortable()->searchable(),
                 // TextColumn::make('city.name')->sortable()->searchable(),
                 // TextColumn::make('state.name')->sortable()->searchable(),
             ])
