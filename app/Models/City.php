@@ -10,11 +10,12 @@ class City extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['state_id', 'name'];
+    protected $fillable = ['country_id', 'name'];
 
-    public function state()
+
+    public function country()
     {
-        return $this->belongsTo(State::class);
+        return $this->belongsTo(Country::class);
     }
 
     public function employees()

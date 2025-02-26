@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\State;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +18,7 @@ class CityFactory extends Factory
     public function definition(): array
     {
         return [
-            'state_id' => State::all()->random()->id,
+            'country_id' => Country::all()->random()->id,
             'name' => fake()->city(),
         ];
     }

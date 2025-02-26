@@ -22,7 +22,6 @@ use App\Filament\Resources\CityResource\Pages\EditCity;
 use App\Filament\Resources\CityResource\Pages\CreateCity;
 use App\Filament\Resources\CityResource\Pages\ListCities;
 use App\Filament\Resources\CityResource\RelationManagers;
-use App\Filament\Resources\CityResource\RelationManagers\StateRelationManager;
 use App\Filament\Resources\CityResource\RelationManagers\EmployeesRelationManager;
 
 class CityResource extends Resource
@@ -36,8 +35,8 @@ class CityResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('state_id')
-                    ->relationship(name: 'state', titleAttribute: 'name'),
+                Select::make('country_id')
+                    ->relationship(name: 'country', titleAttribute: 'name'),
                 TextInput::make('name'),
             ]);
     }
@@ -47,7 +46,7 @@ class CityResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('state.name')->searchable()->sortable(),
+                TextColumn::make('country.name')->searchable()->sortable(),
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('created_at')->searchable(),
             ])
@@ -68,7 +67,6 @@ class CityResource extends Resource
     {
         return [
             EmployeesRelationManager::class,
-            StateRelationManager::class,
         ];
     }
 

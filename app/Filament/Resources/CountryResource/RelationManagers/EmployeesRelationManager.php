@@ -42,31 +42,18 @@ class EmployeesRelationManager extends RelationManager
                     ->label('Country')
                     ->options(Country::all()->pluck('name', 'id')->toArray())
                     ->reactive()
-                    ->afterStateUpdated(fn(callable $set) => $set('state_id', null)),
-                Select::make('state_id')
-                    ->required()
-                    ->label('State')
-                    ->options(function (callable $get) {
-                        $country = Country::find($get('country_id'));
-                        if (!$country) {
-                            return State::all()->pluck('name', 'id');
-                        }
-                        return $country->states->pluck('name', 'id');
-                    })
-                    ->reactive()
                     ->afterStateUpdated(fn(callable $set) => $set('city_id', null)),
                 Select::make('city_id')
                     ->required()
                     ->label('City')
                     ->options(function (callable $get) {
-                        $state = State::find($get('state_id'));
-                        if (!$state) {
+                        $country = Country::find($get('country_id'));
+                        if (!$country) {
                             return City::all()->pluck('name', 'id');
                         }
-                        return $state->cities->pluck('name', 'id');
+                        return $country->cities->pluck('name', 'id');
                     })
-                    ->reactive()
-                    ->afterStateUpdated(fn(callable $set) => $set('city_id', null)),
+                    ->reactive(),
                 Select::make('department_id')
                     ->required()
                     ->relationship(name: 'department', titleAttribute: 'name')

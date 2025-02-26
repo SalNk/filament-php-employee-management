@@ -28,7 +28,6 @@ class EmployeeFactory extends Factory
             'birth_day' => fake()->date(),
             'date_hired' => fake()->date(),
             'country_id' => Country::all()->random()->id,
-            'state_id' => State::all()->random()->id,
             'city_id' => City::all()->random()->id,
             'department_id' => Department::all()->random()->id,
         ];

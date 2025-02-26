@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->date('birth_day');
             $table->date('date_hired');
             $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
-            $table->foreignId('state_id')->constrained('states')->cascadeOnDelete();
             $table->foreignId('city_id')->constrained('cities')->cascadeOnDelete();
             $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete();
             $table->timestamps();

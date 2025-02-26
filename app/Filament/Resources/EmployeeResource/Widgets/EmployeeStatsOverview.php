@@ -18,7 +18,7 @@ class EmployeeStatsOverview extends BaseWidget
             // ->description("Here's a total employees")
             // ->descriptionIcon('heroicon-o-rectangle-stack')
             // ->color('success'),
-            Stat::make($rdc->name . ' Employees', $rdc->employees_count),
+            // Stat::make($rdc->name . ' Employees', $rdc->employees_count),
             Stat::make('Unique views', '191,6k'),
         ];
     }
