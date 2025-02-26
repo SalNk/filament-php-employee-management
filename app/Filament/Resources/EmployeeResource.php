@@ -25,8 +25,9 @@ use App\Models\City;
 class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $label = "Employés";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {

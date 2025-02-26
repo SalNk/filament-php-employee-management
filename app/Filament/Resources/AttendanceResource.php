@@ -25,8 +25,8 @@ use App\Filament\Resources\AttendanceResource\Widgets\AttendanceStatsOverview;
 class AttendanceResource extends Resource
 {
     protected static ?string $model = Attendance::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+    protected static ?string $label = "Présences";
 
     public static function form(Form $form): Form
     {
@@ -120,7 +120,7 @@ class AttendanceResource extends Resource
                 Filter::make('today')
                     ->label('Aujourd\'hui')
                     ->query(fn($query) => $query->whereDate('date', today()))
-                    ->default(), // Appliquer ce filtre par défaut
+                    ->default(),
 
                 Filter::make('date_range')
                     ->label('Plage de dates')

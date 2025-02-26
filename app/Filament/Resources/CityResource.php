@@ -30,6 +30,8 @@ class CityResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'System management';
     protected static ?int $navigationSort = 2;
+    protected static ?string $label = "Villes";
+
 
     public static function form(Form $form): Form
     {
