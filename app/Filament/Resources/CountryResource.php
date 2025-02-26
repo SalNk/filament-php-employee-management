@@ -32,9 +32,11 @@ class CountryResource extends Resource
                 Section::make()
                     ->schema([
                         TextInput::make('country_code')
+                            ->label('Code du pays')
                             ->required()
                             ->numeric(),
                         TextInput::make('name')
+                            ->label('Nom')
                             ->required(),
                     ])
             ]);
@@ -44,10 +46,25 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('country_code')->sortable()->searchable(),
-                TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('created_at')->dateTime(),
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
+
+                TextColumn::make('country_code')
+                    ->label('Code du pays')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('name')
+                    ->label('Nom')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('created_at')
+                    ->label('Créé le')
+                    ->dateTime()
+                    ->sortable(),
+
             ])
             ->filters([
                 //

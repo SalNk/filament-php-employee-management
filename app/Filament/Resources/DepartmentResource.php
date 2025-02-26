@@ -31,7 +31,8 @@ class DepartmentResource extends Resource
             ->schema([
                 Section::make()
                     ->schema([
-                        TextInput::make('name'),
+                        TextInput::make('name')
+                            ->label('Nom'),
                     ])
             ]);
     }
@@ -41,8 +42,11 @@ class DepartmentResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('created_at')->dateTime(),
+                TextColumn::make('name')->sortable()->searchable()
+                    ->label('Nom'),
+                TextColumn::make('created_at')
+                    ->label('Créé le')
+                    ->dateTime(),
             ])
             ->filters([
                 //

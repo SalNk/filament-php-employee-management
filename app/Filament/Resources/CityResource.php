@@ -38,8 +38,10 @@ class CityResource extends Resource
         return $form
             ->schema([
                 Select::make('country_id')
+                    ->label('Pays')
                     ->relationship(name: 'country', titleAttribute: 'name'),
-                TextInput::make('name'),
+                TextInput::make('name')
+                    ->label('Nom'),
             ]);
     }
 
@@ -48,9 +50,14 @@ class CityResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('country.name')->searchable()->sortable(),
-                TextColumn::make('name')->searchable()->sortable(),
-                TextColumn::make('created_at')->searchable(),
+                TextColumn::make('country.name')->searchable()->sortable()
+                    ->label('Nom du pays'),
+                TextColumn::make('name')->searchable()->sortable()
+                    ->label('Ville'),
+                TextColumn::make('created_at')
+                    ->label('Créé le')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //

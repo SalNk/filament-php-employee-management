@@ -34,25 +34,36 @@ class EmployeeResource extends Resource
         return $form
             ->schema([
                 TextInput::make('full_name')
+                    ->label('Nom complet')
                     ->required(),
+
                 TextInput::make('address')
+                    ->label('Adresse')
                     ->required(),
+
                 TextInput::make('zip_code')
+                    ->label('Code postal')
                     ->required()
                     ->maxLength(6),
+
                 DatePicker::make('birth_day')
+                    ->label('Date de naissance')
                     ->required(),
+
                 DatePicker::make('date_hired')
+                    ->label('Date d\'embauche')
                     ->required(),
+
                 Select::make('country_id')
+                    ->label('Pays')
                     ->required()
-                    ->label('Country')
                     ->options(Country::all()->pluck('name', 'id')->toArray())
                     ->reactive()
                     ->afterStateUpdated(fn(callable $set) => $set('city_id', null)),
+
                 Select::make('city_id')
+                    ->label('Ville')
                     ->required()
-                    ->label('City')
                     ->options(function (callable $get) {
                         $country = Country::find($get('country_id'));
                         if (!$country) {
@@ -61,9 +72,11 @@ class EmployeeResource extends Resource
                         return $country->cities->pluck('name', 'id');
                     })
                     ->reactive(),
+
                 Select::make('department_id')
+                    ->label('Département')
                     ->required()
-                    ->relationship(name: 'department', titleAttribute: 'name')
+                    ->relationship(name: 'department', titleAttribute: 'name'),
             ]);
     }
 
@@ -71,12 +84,30 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('full_name')->sortable()->searchable(),
-                TextColumn::make('department.name')->sortable()->searchable(),
-                TextColumn::make('date_hired')->sortable()->searchable(),
-                TextColumn::make('created_at')->dateTime(),
-                TextColumn::make('country.name')->sortable()->searchable(),
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
+
+                TextColumn::make('full_name')
+                    ->label('Nom complet')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('department.name')
+                    ->label('Département')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('date_hired')
+                    ->label('Date d\'embauche')
+                    ->sortable()
+                    ->date('D d M Y')
+                    ->searchable(),
+
+                TextColumn::make('country.name')
+                    ->label('Pays')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 SelectFilter::make('department')
