@@ -18,7 +18,7 @@ class EmployeesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('first_name')
+                Forms\Components\TextInput::make('full_name')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -27,9 +27,9 @@ class EmployeesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('first_name')
+            ->recordTitleAttribute('full_name')
             ->columns([
-                Tables\Columns\TextColumn::make('first_name'),
+                Tables\Columns\TextColumn::make('full_name'),
             ])
             ->filters([
                 //

@@ -11,8 +11,7 @@ class Employee extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'full_name',
         'address',
         'zip_code',
         'birth_day',
@@ -35,5 +34,10 @@ class Employee extends Model
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

@@ -32,9 +32,7 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('first_name')
-                    ->required(),
-                TextInput::make('last_name')
+                TextInput::make('full_name')
                     ->required(),
                 TextInput::make('address')
                     ->required(),
@@ -73,8 +71,7 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('first_name')->sortable()->searchable(),
-                TextColumn::make('last_name')->sortable()->searchable(),
+                TextColumn::make('full_name')->sortable()->searchable(),
                 TextColumn::make('department.name')->sortable()->searchable(),
                 TextColumn::make('date_hired')->sortable()->searchable(),
                 TextColumn::make('created_at')->dateTime(),

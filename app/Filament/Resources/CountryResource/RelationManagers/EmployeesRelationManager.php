@@ -25,9 +25,7 @@ class EmployeesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                TextInput::make('first_name')
-                    ->required(),
-                TextInput::make('last_name')
+                TextInput::make('full_name')
                     ->required(),
                 TextInput::make('address')
                     ->required(),
@@ -63,11 +61,10 @@ class EmployeesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('first_name')
+            ->recordTitleAttribute('full_name')
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('first_name')->sortable()->searchable(),
-                TextColumn::make('last_name')->sortable()->searchable(),
+                TextColumn::make('full_name')->sortable()->searchable(),
                 TextColumn::make('department.name')->sortable()->searchable(),
                 TextColumn::make('date_hired')->sortable()->searchable(),
             ])
